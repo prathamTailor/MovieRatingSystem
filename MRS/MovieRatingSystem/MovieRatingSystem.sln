@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33403.182
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieRatingSystem", "MovieRatingSystem\MovieRatingSystem.csproj", "{0A1C5319-31A3-49D2-BB18-0CB0055C9F7A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0A1C5319-31A3-49D2-BB18-0CB0055C9F7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A1C5319-31A3-49D2-BB18-0CB0055C9F7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A1C5319-31A3-49D2-BB18-0CB0055C9F7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A1C5319-31A3-49D2-BB18-0CB0055C9F7A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FE0AF5F7-046E-4ADD-AA9B-27A581E9A3FB}
+	EndGlobalSection
+EndGlobal
