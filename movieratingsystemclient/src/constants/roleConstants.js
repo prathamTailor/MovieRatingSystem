@@ -1,0 +1,5 @@
+export const ALL_ROLE_REQUEST = "ALL_ROLE_REQUEST";
+export const ALL_ROLE_SUCCESS = "ALL_ROLE_SUCCESS";
+export const ALL_ROLE_FAIL = "ALL_ROLE_FAIL";
+
+export const CLEAR_ERRORS = "CLEAR_ERRORS";

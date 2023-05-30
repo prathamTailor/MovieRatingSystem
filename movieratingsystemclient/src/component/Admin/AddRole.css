@@ -1,0 +1,53 @@
+.AddRoleContainer {
+    width: 100vw;
+    height: 100vh;
+    max-width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(231, 231, 231);
+    position: fixed;
+    top: 0%;
+    left: 0;
+}
+
+.AddRoleBox {
+    background-color: white;
+    width: 50vw;
+    height: 70vh;
+    box-sizing: border-box;
+    overflow:auto;
+}
+
+.AddRoleBox h3 {
+    padding: 2vh;
+}
+
+.AddRoleForm{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+    padding: 2vmax;
+    justify-content: space-evenly;
+    height: 70%;
+    transition: all 0.5s;
+}
+
+.AddRoleForm > div {
+    display: flex;
+    width: 100%;
+    align-items: center;
+}
+
+.AddRoleForm > div > input {
+    padding: 1vmax 4vmax;
+    padding-right: 1vmax;
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.267);
+    border-radius: 4px;
+    font: 300 0.9vmax cursive;
+    outline: none;
+    margin: 1vh;
+}

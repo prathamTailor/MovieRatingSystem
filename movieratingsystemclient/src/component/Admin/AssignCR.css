@@ -1,0 +1,67 @@
+.AssignContainer {
+    width: 100vw;
+    height: 100vh;
+    max-width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(231, 231, 231);
+    position: fixed;
+    top: 0%;
+    left: 0;
+}
+
+.AssignBox {
+    background-color: white;
+    width: 35vw;
+    height: 80vh;
+    box-sizing: border-box;
+    overflow:auto;
+}
+
+.AssignBox h3 {
+    padding: 2vh;
+}
+
+.AssignForm{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+    padding: 2vmax;
+    justify-content: space-evenly;
+    height: 70%;
+    transition: all 0.5s;
+    margin-top: 10vh;
+}
+
+.AssignForm > div {
+    display: flex;
+    width: 100%;
+    align-items: center;
+}
+
+.formInput {
+    margin: 2vh;
+}
+
+.selectMovie {
+    width: 31vw;
+    padding: 10px;
+}
+
+.AssignBtn {
+    border: none;
+    background-color: tomato;
+    color: white;
+    font: 300 0.9vmax "Roboto";
+    width: 100%;
+    padding: 0.8vmax;
+    cursor: pointer;
+    transition: all 0.5s;
+    border-radius: 4px;
+    outline: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.219);
+    margin-top: 5vh;
+    margin-bottom: 15vh;
+}
