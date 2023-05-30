@@ -212,6 +212,34 @@ namespace MovieRatingSystem.Migrations
                     b.ToTable("MovieCelebrities");
                 });
 
+            modelBuilder.Entity("MovieRatingSystem.Models.MovieCelebrityRole", b =>
+                {
+                    b.Property<int>("movieCelebrityRoleId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("movieCelebrityRoleId"));
+
+                    b.Property<int?>("celebrityId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("movieId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("roleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("movieCelebrityRoleId");
+
+                    b.HasIndex("celebrityId");
+
+                    b.HasIndex("movieId");
+
+                    b.HasIndex("roleId");
+
+                    b.ToTable("MovieCelebrityRoles");
+                });
+
             modelBuilder.Entity("MovieRatingSystem.Models.MovieRole", b =>
                 {
                     b.Property<int>("movieRoleId")
@@ -401,6 +429,27 @@ namespace MovieRatingSystem.Migrations
                     b.Navigation("Celebrity");
 
                     b.Navigation("Movie");
+                });
+
+            modelBuilder.Entity("MovieRatingSystem.Models.MovieCelebrityRole", b =>
+                {
+                    b.HasOne("MovieRatingSystem.Models.Celebrity", "Celebrity")
+                        .WithMany()
+                        .HasForeignKey("celebrityId");
+
+                    b.HasOne("MovieRatingSystem.Models.Movie", "Movie")
+                        .WithMany()
+                        .HasForeignKey("movieId");
+
+                    b.HasOne("MovieRatingSystem.Models.Role", "Role")
+                        .WithMany()
+                        .HasForeignKey("roleId");
+
+                    b.Navigation("Celebrity");
+
+                    b.Navigation("Movie");
+
+                    b.Navigation("Role");
                 });
 
             modelBuilder.Entity("MovieRatingSystem.Models.MovieRole", b =>

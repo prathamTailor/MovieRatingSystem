@@ -3,8 +3,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Net.Http.Headers;
 using MovieRatingSystem.DTOs;
 using MovieRatingSystem.Models;
+using System.Net;
+using SameSiteMode = Microsoft.AspNetCore.Http.SameSiteMode;
 
 namespace MovieRatingSystem.Controller
 {
@@ -35,12 +38,12 @@ namespace MovieRatingSystem.Controller
             user.uCity = userDTO.uCity;
             user.uCountry = userDTO.uCountry;
             user.imgUrl = userDTO.imgUrl;
-            var res = await _authRepo.Register(user,userDTO.password);
-            if (res == 0)
+            string res = await _authRepo.Register(user,userDTO.password);
+            if (res == "username or password is already used")
             {
-                return BadRequest($"Cannot register {userDTO.userName}");
+                return BadRequest($"UserName '{userDTO.userName}' or Email '{userDTO.uEmail}' is already used.");
             }
-            return Ok($"User registered successfully!");
+            return Ok(res);
         }
 
         [HttpPost("Login")]
@@ -50,6 +53,7 @@ namespace MovieRatingSystem.Controller
             if (res == null) {
                 return BadRequest($"Incorrect username or password");
             }
+            Response.Cookies.Append("Token", res, new CookieOptions() { HttpOnly = true, SameSite = SameSiteMode.Strict });
             return Ok(res);
         }
 
@@ -85,14 +89,37 @@ namespace MovieRatingSystem.Controller
             return Ok(userDTO);
         }
 
+        [HttpGet("me")]
+        public async Task<ActionResult<string>> LoadUser()
+        {
+            if (Request.Cookies["Token"] == null) {
+                return BadRequest("Coocie Not Found");
+            }
+
+            var res = Request.Cookies["Token"];
+
+            return res;
+        }
+
+        [HttpGet("logout")]
+        public async Task<ActionResult<string>> Logout()
+        {
+            if (Request.Cookies["Token"] != null)
+            {
+                Response.Cookies.Append("Token", "null", new CookieOptions() { Expires = DateTime.Now.AddDays(-1),HttpOnly = true, SameSite = SameSiteMode.Strict });
+                return Ok("Loged out successfully");
+            }
+            return BadRequest("Some problem in Loged out");
+        }
+
         // PUT: api/Auth/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutUser(int id, UserDTO userDTO)
         {
-            if (id != userDTO.userId)
-            {
-                return BadRequest();
-            }
+            //if (id != userDTO.userId)
+            //{
+            //    return BadRequest();
+            //}
 
             //_context.Entry(admin).State = EntityState.Modified;
             var user = await _context.User.FindAsync(id);

@@ -1,7 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Azure;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using NuGet.Common;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Http;
 
 namespace MovieRatingSystem.Models
 {
@@ -52,7 +55,7 @@ namespace MovieRatingSystem.Models
             return tokenHandler.WriteToken(securityToken);
         }
 
-        public async Task<string?> Login(string username, string password)
+        public async Task<string> Login(string username, string password)
         {
             var user = await _context.User.FirstOrDefaultAsync(u => u.userName.ToLower() == username.ToLower());
             if (user == null)
@@ -63,15 +66,15 @@ namespace MovieRatingSystem.Models
             {
                 return null;
             }
-            else { 
+            else {
                 return CreateToken(user);
             }
         }
 
-        public async Task<int> Register(User user, string password)
+        public async Task<string> Register(User user, string password)
         {
-            if (await UserExists(user.userName)) {
-                return 0;
+            if (await UserExists(user.userName,user.uEmail)) {
+                return "username or password is already used";
             }
             CreatePasswordHash(password,out byte[] passwordHash,out byte[] passwordSalt);
             user.PasswordHash = passwordHash;
@@ -79,12 +82,19 @@ namespace MovieRatingSystem.Models
 
             _context.User.Add(user);
             await _context.SaveChangesAsync();
-            return user.userId;
+
+            return "User Registered successfully";
+
+            //return user.userId;
         }
 
-        public async Task<bool> UserExists(string username)
+        public async Task<bool> UserExists(string username,string uEmail)
         {
-            if (await _context.User.AnyAsync(u => u.userName.ToLower() == username.ToLower())) {
+            if (await _context.User.AnyAsync(u => u.userName.ToLower() == username.ToLower() || u.uEmail.ToLower() == uEmail.ToLower())) {
+                return true;
+            }
+            if (await _context.Admin.AnyAsync(a => a.adminName.ToLower() == username.ToLower() || a.aEmail.ToLower() == uEmail.ToLower()))
+            {
                 return true;
             }
             return false;

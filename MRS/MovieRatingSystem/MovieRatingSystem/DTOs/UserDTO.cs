@@ -17,6 +17,5 @@ namespace MovieRatingSystem.DTOs
         public string uCountry { get; set; } = string.Empty;
         public string imgUrl { get; set; } = string.Empty;
 
-
     }
 }

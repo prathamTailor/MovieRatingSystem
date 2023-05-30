@@ -8,7 +8,6 @@ using MovieRatingSystem.Models;
 
 namespace MovieRatingSystem.Controller
 {
-    [Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class AdminAuthController : ControllerBase
@@ -57,6 +56,7 @@ namespace MovieRatingSystem.Controller
             {
                 return BadRequest($"Incorrect username or password");
             }
+            Response.Cookies.Append("AdminToken", res, new CookieOptions() { HttpOnly = true, SameSite = SameSiteMode.Strict });
             return Ok(res);
         }
 
@@ -90,6 +90,30 @@ namespace MovieRatingSystem.Controller
 
             var adminDTO =  _mapper.Map<AdminDTO>(admin);
             return Ok(adminDTO);
+        }
+
+        [HttpGet("me")]
+        public async Task<ActionResult<string>> LoadAdmin()
+        {
+            if (Request.Cookies["AdminToken"] == null)
+            {
+                return BadRequest("Coocie Not Found");
+            }
+
+            var res = Request.Cookies["AdminToken"];
+
+            return res;
+        }
+
+        [HttpGet("logout")]
+        public async Task<ActionResult<string>> Logout()
+        {
+            if (Request.Cookies["AdminToken"] != null)
+            {
+                Response.Cookies.Append("AdminToken", "null", new CookieOptions() { Expires = DateTime.Now.AddDays(-1), HttpOnly = true, SameSite = SameSiteMode.Strict });
+                return Ok("Loged out successfully");
+            }
+            return BadRequest("Some problem in Loged out");
         }
 
         // PUT: api/AdminAuth/5

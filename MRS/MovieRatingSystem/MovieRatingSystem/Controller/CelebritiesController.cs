@@ -49,6 +49,25 @@ namespace MovieRatingSystem.Controller
             return celebrity;
         }
 
+        //// GET: api/Celebrities/5
+        //[HttpGet("Movie/{id}")]
+        //public async Task<ActionResult<IEnumerable<Celebrity>>> GetCelebrityOfMovie(int id)
+        //{
+        //    if (_context.Celebrity == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    var movieCelebrity = await _context.MovieCelebrities.Where(x => x.movieId == id).ToListAsync();
+
+        //    List<Celebrity> celebrity = new List<Celebrity>();
+        //    foreach (MovieCelebrity mc in movieCelebrity) {
+        //        var c = await _context.Celebrity.FindAsync(mc.celebrityId);
+        //        celebrity.Add(c);
+        //    }
+
+        //    return celebrity;
+        //}
+
         // PUT: api/Celebrities/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]

@@ -24,6 +24,7 @@ namespace MovieRatingSystem.Controller
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Movie>>> GetMovies()
         {
+            //return NotFound();
           if (_context.Movies == null)
           {
               return NotFound();
@@ -83,7 +84,7 @@ namespace MovieRatingSystem.Controller
         // POST: api/Movies
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Movie>> PostMovie(Movie movie)
+        public async Task<ActionResult<string>> PostMovie(Movie movie)
         {
           if (_context.Movies == null)
           {
@@ -92,7 +93,7 @@ namespace MovieRatingSystem.Controller
             _context.Movies.Add(movie);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetMovie", new { id = movie.movieId }, movie);
+            return Ok("Movie Added successfully");
         }
 
         // DELETE: api/Movies/5

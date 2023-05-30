@@ -4,6 +4,6 @@
     {
         Task<int> Register(Admin admin, string password);
         Task<string> Login(string adminName, string password);
-        Task<bool> AdminExists(string adminName);
+        Task<bool> AdminExists(string adminName,string aEmail);
     }
 }

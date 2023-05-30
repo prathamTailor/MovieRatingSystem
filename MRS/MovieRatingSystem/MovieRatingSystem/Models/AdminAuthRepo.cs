@@ -16,9 +16,13 @@ namespace MovieRatingSystem.Models
             _configuration = configuration;
         }
 
-        public async Task<bool> AdminExists(string adminName)
+        public async Task<bool> AdminExists(string adminName, string aEmail)
         {
-            if (await _context.Admin.AnyAsync(a => a.adminName.ToLower() == adminName.ToLower()))
+            if (await _context.User.AnyAsync(u => u.userName.ToLower() == adminName.ToLower() || u.uEmail.ToLower() == aEmail.ToLower()))
+            {
+                return true;
+            }
+            if (await _context.Admin.AnyAsync(a => a.adminName.ToLower() == adminName.ToLower() || a.aEmail.ToLower() == aEmail.ToLower()))
             {
                 return true;
             }
@@ -44,7 +48,7 @@ namespace MovieRatingSystem.Models
 
         public async Task<int> Register(Admin admin, string password)
         {
-            if (await AdminExists(admin.adminName))
+            if (await AdminExists(admin.adminName,admin.aEmail))
             {
                 return 0;
             }
